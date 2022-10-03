@@ -1,0 +1,20 @@
+package com.userservice.domain.dto;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.math.BigDecimal;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class CardByClientIdResponseDto {
+    String cardId;
+    String cardNumber;
+    BigDecimal balance;
+    String accountCurrencyCode;
+    String expirationDate;
+    String paymentSystem;
+}

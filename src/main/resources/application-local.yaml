@@ -1,0 +1,63 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  application:
+    name: serviceuser
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/myDB
+    username: serg
+    password: 12345
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        enable_lazy_load_no_trans: true
+        ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.gmail.com
+    username: a.music.platform@gmail.com
+    password: project-a-music
+    port: 587
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+
+logging:
+  file:
+    name: ${sys:}/logs/logFile.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework: INFO
+    org.hibernate: INFO
+    com.userservice: INFO
+
+
+security:
+  token:
+    secret: secret
+    expiration: 3600000 # это 1 час в мс по формуле 1(час) * 60(мин) * 60(сек) * 1000(мс)
+  code-expiration: 2
+server:
+  port: 8084
+#  port: ${PORT:0}
+eureka:
+  instance:
+    preferIpAddress: true
+#    ip-address: ${server.address}
+#    instance-id: ${server.address}:${server.port}
+  client:
+    service-url:
+#      defaultZone: http://10.10.14.16:8762/eureka
+      defaultZone: http://localhost:8762/eureka

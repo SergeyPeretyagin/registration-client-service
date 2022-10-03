@@ -1,0 +1,38 @@
+version: "3"
+
+x-logging: &default-logging
+   options:
+      max-size: "10m"
+      max-file: "4"
+      tag: "{{.ImageName}}|{{.Name}}"
+   driver: json-file
+
+
+
+services:
+  backend-user:
+    container_name: $PROGECT-$APP-dev
+    domainname: serviceuser
+    hostname: serviceuser
+    build:
+      context: .
+    image: $AND_DOCKER_REGISTRY_NAME/$PROGECT-$APP:dev
+    ports:
+      - 8080:8080
+    restart: always
+    logging: *default-logging
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+    volumes:
+        - a-music-dev-backend:/logs
+    networks:
+      - a-music-net
+
+networks:
+  a-music-net:
+    external: true
+  
+
+volumes:
+  a-music-dev-backend:

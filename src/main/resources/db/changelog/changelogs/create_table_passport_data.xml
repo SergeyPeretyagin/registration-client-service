@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="1" author="Sergey Peretyagin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="passport_data"/>
+            </not>
+        </preConditions>
+        <createTable tableName="passport_data">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_passport_data"/>
+            </column>
+            <column name="passport_number" type="VARCHAR(255)"/>
+            <column name="issuance_date" type="DATE"/>
+            <column name="expiry_date" type="DATE"/>
+            <column name="nationality" type="VARCHAR(255)"/>
+            <column name="birth_date" type="DATE"/>
+        </createTable>
+        <addUniqueConstraint columnNames="passport_number" constraintName="uc_passport_data_passport_number" tableName="passport_data"/>
+    </changeSet>
+</databaseChangeLog>

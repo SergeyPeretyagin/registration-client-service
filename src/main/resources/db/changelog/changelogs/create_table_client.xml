@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="2" author="Sergey Peretyagin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="client"/>
+            </not>
+        </preConditions>
+        <createTable tableName="client">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_client"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="middle_name" type="VARCHAR(255)"/>
+            <column name="country_of_residence" type="VARCHAR(255)"/>
+            <column name="passport_data_id" type="UUID"/>
+            <column name="accession_date" type="DATE"/>
+            <column name="client_status" type="VARCHAR(255)"/>
+            <column name="mobile_phone" type="VARCHAR(255)"/>
+            <column name="employer_identification_number" type="VARCHAR(255)"/>
+        </createTable>
+        <addUniqueConstraint columnNames="mobile_phone" constraintName="uc_client_mobile_phone" tableName="client"/>
+        <addUniqueConstraint columnNames="passport_data_id" constraintName="uc_client_passport_data" tableName="client"/>
+        <addForeignKeyConstraint baseColumnNames="passport_data_id" baseTableName="client" constraintName="FK_CLIENT_ON_PASSPORT_DATA" referencedColumnNames="id" referencedTableName="passport_data"/>
+    </changeSet>
+</databaseChangeLog>

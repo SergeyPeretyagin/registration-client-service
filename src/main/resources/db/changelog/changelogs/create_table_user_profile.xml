@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="5" author="Sergey Peretyagin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_profile"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_profile">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_profile"/>
+            </column>
+            <column name="sms_notification" type="BOOLEAN"/>
+            <column name="push_notification" type="BOOLEAN"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="security_question" type="VARCHAR(255)"/>
+            <column name="security_answer" type="VARCHAR(255)"/>
+            <column name="app_registration_date" type="DATE"/>
+            <column name="email_subscription" type="BOOLEAN"/>
+            <column name="client_id" type="UUID"/>
+        </createTable>
+        <addUniqueConstraint columnNames="email" constraintName="uc_user_profile_email" tableName="user_profile"/>
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="user_profile" constraintName="FK_USER_PROFILE_ON_CLIENT" referencedColumnNames="id" referencedTableName="client" />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="8" author="Sergey Peretyagin">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from passport_data where id = '7b1cef10-02ab-4594-8619-966a53f26079'</sqlCheck>
+        </preConditions>
+        <insert tableName="passport_data">
+            <column name="id" value="7b1cef10-02ab-4594-8619-966a53f26079"/>
+            <column name="passport_number" value="AB123456789"/>
+        </insert>
+        <insert tableName="client">
+            <column name="id" value="46a1ba6c-2c26-4ac4-983b-53686f00f099"/>
+            <column name="first_name" value="Trainee"/>
+            <column name="last_name" value="Lab"/>
+            <column name="middle_name" value="TL"/>
+            <column name="country_of_residence" value="Planet Earth"/>
+            <column name="passport_data_id" value="7b1cef10-02ab-4594-8619-966a53f26079"/>
+            <column name="accession_date" valueDate="now()"/>
+            <column name="client_status" value="ACTIVE"/>
+            <column name="mobile_phone" value="29123456789"/>
+        </insert>
+        <insert tableName="user_profile">
+            <column name="id" value="8a477b03-9963-42b5-8fc4-c517309d2ae8"/>
+            <column name="sms_notification" valueBoolean="true"/>
+            <column name="push_notification" valueBoolean="true"/>
+            <column name="password" value="$2a$10$QRL5VTdC7c/fkZBzBGFcfO/Y9ljYUNbjx01V.QM5Y1n52vi/ep3NK"/>
+            <column name="email" value="peace@andersen.com"/>
+            <column name="security_question" value="Is this project team cool?"/>
+            <column name="security_answer" value="Yes"/>
+            <column name="app_registration_date" valueDate="now()"/>
+            <column name="email_subscription" valueBoolean="true"/>
+            <column name="client_id" value="46a1ba6c-2c26-4ac4-983b-53686f00f099"/>
+        </insert>
+        <insert tableName="user_profile_roles">
+            <column name="roles_id" value="0356f29a-dd57-4e0f-8168-51f73aeb5d74"/>
+            <column name="user_profile_id" value="8a477b03-9963-42b5-8fc4-c517309d2ae8"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

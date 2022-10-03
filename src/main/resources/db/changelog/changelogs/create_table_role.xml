@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="3" author="Sergey Peretyagin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+        <createTable tableName="role">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_role"/>
+            </column>
+            <column name="enum_role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Yaminov Damir">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from role</sqlCheck>
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" value="0356f29a-dd57-4e0f-8168-51f73aeb5d74"/>
+            <column name="enum_role" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="4b777414-8e7d-4d1f-bcab-f2ee7dd326ce"/>
+            <column name="enum_role" value="ROLE_ADMIN"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="de6e34c9-5b50-44cd-b84a-5a7b97872022"/>
+            <column name="enum_role" value="ROLE_DEMO"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="9993663f-3c5d-42c3-8e0b-101e0c555c4b"/>
+            <column name="enum_role" value="ROLE_UNAUTHORIZED"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="cedebd44-f8bb-433d-8cfa-e8eee5f45729"/>
+            <column name="enum_role" value="ROLE_UNVERIFIED"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="e9c1e4c0-4e0e-41ee-9adc-864056f3b7b0"/>
+            <column name="enum_role" value="ROLE_OPERATOR"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
